@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$aKHflET9wkYVjSmXTAlOHO8fr9tIMy4ylVOsqwmv.w5zT/GDZWwDi",
+      "name": "Eugene Nakoneschniy",
+      "phone": "+380685839243",
+      "id": 1
+    }
+  ],
+  "groups": []
+}
