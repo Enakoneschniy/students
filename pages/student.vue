@@ -2,7 +2,7 @@
   <b-container class="d-flex justify-content-center">
     <b-form @submit.prevent="onSubmit" class="auth-form create-form">
       <h2 class="text-center">
-        Add new student
+        Edit a student
       </h2>
       <hr>
       <b-form-group
@@ -48,7 +48,7 @@
         ></b-form-input>
       </b-form-group>
       <b-button class="btn-block" type="submit" variant="primary">
-        Create
+        Save
       </b-button>
     </b-form>
   </b-container>
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: 'Register',
+  name: 'Student',
   computed: {
     options () {
       return this.groups.map(group => ({
@@ -65,27 +65,24 @@ export default {
       }))
     }
   },
-  async asyncData ({ $axios, params }) {
-    let groups = []
-    let groupId = null
+  async asyncData ({ $axios, params, error }) {
     try {
-      groups = await $axios.$get('/groups')
-      if (params.groupId) {
-        groupId = params.groupId
-      } else if (groups.length > 0) {
-        groupId = groups[0].id
-      }
+      const form = await $axios.$get(`/students/${params.id}`)
+      const groups = await $axios.$get(`/groups`)
+      return { form, groups }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e)
+      return error(e)
     }
-    return { groups, form: { groupId } }
   },
   methods: {
     async onSubmit () {
       try {
-        await this.$axios.$post('/students', this.form)
-        this.$router.replace({ name: 'students' })
+        const { id, ...form } = this.form
+        await this.$axios.$patch(`/students/${id}`, form)
+        this.$toast.success('Student was updated', {
+          // override the global option
+          position: 'top'
+        })
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e.response)
@@ -95,6 +92,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>

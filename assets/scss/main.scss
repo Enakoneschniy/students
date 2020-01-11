@@ -3,4 +3,17 @@
 .auth-form {
   width: 300px;
   padding-top: 200px;
+
+  &.create-form {
+    width: 500px;
+  }
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #cacaca;
+  padding-top: 25px;
+  margin-bottom: 25px;
 }

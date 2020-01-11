@@ -8,5 +8,23 @@
       "id": 1
     }
   ],
-  "groups": []
+  "students": [
+    {
+      "groupId": 1,
+      "name": "Eugene Nakoneschniy",
+      "email": "e.nakoneschniy@gmail.com",
+      "phone": "+380685839243",
+      "id": 1
+    }
+  ],
+  "groups": [
+    {
+      "name": "Frontend 01/2020",
+      "id": 1
+    },
+    {
+      "name": "PHP 01/2020",
+      "id": 2
+    }
+  ]
 }
