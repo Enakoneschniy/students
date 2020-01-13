@@ -9,6 +9,7 @@ import Students from './pages/students'
 import CreateGroup from './pages/create-group'
 import Group from './pages/group'
 import Student from './pages/student'
+import FormBuilder from './pages/form-builder'
 
 Vue.use(Router)
 
@@ -25,6 +26,11 @@ export function createRouter () {
         name: 'groups',
         path: '/groups',
         component: Groups
+      },
+      {
+        name: 'form-builder',
+        path: '/form-builder',
+        component: FormBuilder
       },
       {
         name: 'create-group',

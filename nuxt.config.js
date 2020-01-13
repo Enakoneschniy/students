@@ -33,7 +33,10 @@ export default {
   */
   plugins: [
     { src: '~/plugins/toast.js', ssr: true },
-    { src: '~/plugins/validate.js', ssr: true }
+    { src: '~/plugins/validate.js', ssr: true },
+    { src: '~/plugins/form-builder.js', ssr: true },
+    { src: '~/plugins/draggable.js', ssr: false },
+    { src: '~/plugins/modal.js', ssr: true }
   ],
   /*
   ** Nuxt.js dev-modules

@@ -28,6 +28,16 @@
             Students
           </nuxt-link>
         </li>
+        <li class="nav-item">
+          <nuxt-link
+            :to="{ name: 'form-builder' }"
+            class="nav-link"
+            exact
+            exact-active-class="active"
+          >
+            Form Builder
+          </nuxt-link>
+        </li>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

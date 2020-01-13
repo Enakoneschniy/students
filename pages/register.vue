@@ -57,6 +57,7 @@
 <script>
 export default {
   name: 'Register',
+  layout: 'empty',
   computed: {
     options () {
       return this.groups.map(group => ({
