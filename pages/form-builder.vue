@@ -8,6 +8,9 @@
         <div class="d-flex">
           <form class="w-75 form drag-inner-list">
             <vue-form-generator :schema="schema" :model="model" :options="formOptions" />
+            <button v-if="schema.fields.length > 0" @click.prevent="onSave" class="btn btn-secondary">
+              Save
+            </button>
           </form>
           <div class="w-25">
             <ul class="drag-inner-list">
@@ -18,6 +21,10 @@
           </div>
         </div>
       </div>
+      <!--<div contenteditable="true" class="c-form-control">
+        <span style="color: red;">Этот текст красный</span>
+        <span style="color: green;">Этот текст зеленый</span>
+      </div>-->
     </b-container>
   </client-only>
 </template>
@@ -27,14 +34,7 @@ import AddFieldModal from '../components/AddFieldModal'
 export default {
   name: 'FormBuilder',
   data: () => ({
-    model: {
-      id: 1,
-      name: 'John Doe',
-      password: 'J0hnD03!x4',
-      skills: ['Javascript', 'VueJS'],
-      email: 'john.doe@gmail.com',
-      status: true
-    },
+    model: {},
     baseFields: [
       {
         uid: 1,
@@ -42,9 +42,7 @@ export default {
         type: 'input',
         inputType: 'text',
         label: 'ID',
-        model: 'id',
-        readonly: true,
-        disabled: true
+        model: 'id'
       },
       {
         uid: 2,
@@ -60,8 +58,7 @@ export default {
         fieldLabel: 'Select',
         type: 'select',
         label: 'Skills',
-        model: 'skills',
-        values: ['Javascript', 'VueJS', 'CSS3', 'HTML5']
+        model: 'skills'
       },
       {
         uid: 4,
@@ -76,15 +73,7 @@ export default {
         fieldLabel: 'Radio',
         type: 'radios',
         label: 'Very best friend',
-        model: 'friend',
-        values: [
-          'James',
-          'Nadia',
-          'Paul',
-          'Christelle',
-          'Marc',
-          'Marie'
-        ]
+        model: 'friend'
       },
       {
         uid: 6,
@@ -114,8 +103,19 @@ export default {
   }),
   created () {
     this.dragOptions.onDragend = this.onDragend
+    this.$eventBus.$on('saveField', (field) => {
+      console.log(field)
+      this.schema.fields.push(field)
+    })
   },
   methods: {
+    async onSave () {
+      try {
+        await this.$axios.$patch(`/forms/1`, this.schema)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     onDragend (event) {
       const uid = parseFloat(event.items[0].getAttribute('data-uid'))
       const field = this.baseFields.find(field => field.uid === uid)
@@ -126,8 +126,6 @@ export default {
           adaptive: true,
           minHeight: 500
         })
-        /*
-        this.schema.fields.unshift(field) */
       }
     }
   }
@@ -170,5 +168,22 @@ export default {
     outline: none;
     cursor: pointer;
   }
+}
+.c-form-control {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 150px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 </style>

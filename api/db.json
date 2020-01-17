@@ -26,5 +26,30 @@
       "name": "PHP 01/2020",
       "id": 2
     }
+  ],
+  "forms": [
+    {
+      "id": 1,
+      "fields": [
+        {
+          "uid": 1,
+          "fieldLabel": "Text field",
+          "type": "input",
+          "inputType": "text",
+          "label": "First Name",
+          "model": "first_name",
+          "placeholder": "First Name"
+        },
+        {
+          "uid": 1,
+          "fieldLabel": "Text field",
+          "type": "input",
+          "inputType": "text",
+          "label": "Last Name",
+          "model": "last_name",
+          "placeholder": "Last Name"
+        }
+      ]
+    }
   ]
 }

@@ -36,7 +36,9 @@ export default {
     { src: '~/plugins/validate.js', ssr: true },
     { src: '~/plugins/form-builder.js', ssr: true },
     { src: '~/plugins/draggable.js', ssr: false },
-    { src: '~/plugins/modal.js', ssr: true }
+    { src: '~/plugins/modal.js', ssr: true },
+    { src: '~/plugins/scrollbar.js', ssr: false },
+    { src: '~/plugins/eventBus.js', ssr: true }
   ],
   /*
   ** Nuxt.js dev-modules
