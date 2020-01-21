@@ -1,6 +1,14 @@
 <template>
-  <b-container class="d-flex justify-content-center">
-    <b-form @submit.prevent="onSubmit" class="auth-form create-form">
+  <b-container class="pt-5 d-flex justify-content-center">
+    <client-only>
+      <horizontal-stepper
+        :steps="steps"
+        @completed-step="completeStep"
+        @active-step="isStepActive"
+        @stepper-finished="finish"
+      />
+    </client-only>
+    <!--<b-form @submit.prevent="onSubmit" class="auth-form create-form">
       <h2 class="text-center">
         Add new student
       </h2>
@@ -50,14 +58,47 @@
       <b-button class="btn-block" type="submit" variant="primary">
         Create
       </b-button>
-    </b-form>
+    </b-form>-->
   </b-container>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import Step1 from '../components/form-builder/Step1'
+import Step2 from '../components/form-builder/Step2'
+import Step3 from '../components/form-builder/Step3'
+
 export default {
   name: 'Register',
   layout: 'empty',
+  data: () => ({
+    steps: [
+      {
+        icon: 'build',
+        name: 'first',
+        title: 'Init',
+        subtitle: '',
+        component: Step1,
+        completed: false
+      },
+      {
+        icon: 'description',
+        name: 'second',
+        title: 'Data',
+        subtitle: '',
+        component: Step2,
+        completed: false
+      },
+      {
+        icon: 'done_all',
+        name: 'second',
+        title: 'Done',
+        subtitle: '',
+        component: Step3,
+        completed: false
+      }
+    ]
+  }),
   computed: {
     options () {
       return this.groups.map(group => ({
@@ -82,7 +123,37 @@ export default {
     }
     return { groups, form: { groupId } }
   },
+  created () {
+    setTimeout(() => {
+      const st1 = { ...this.steps[0] }
+      st1.completed = true
+      this.steps.splice(0, 1, st1)
+    }, 5000)
+  },
   methods: {
+    ...mapActions({
+      saveFormData: 'form-builder/saveFormData'
+    }),
+    completeStep (payload) {
+      this.steps.forEach((step) => {
+        if (step.name === payload.name) {
+          step.completed = true
+        }
+      })
+    },
+    // Executed when @active-step event is triggered
+    isStepActive (payload) {
+      this.steps.forEach((step) => {
+        if (step.name === payload.name) {
+          if (step.completed === true) {
+            step.completed = false
+          }
+        }
+      })
+    },
+    finish (payload) {
+      this.saveFormData()
+    },
     async onSubmit () {
       try {
         await this.$axios.$post('/students', this.form)

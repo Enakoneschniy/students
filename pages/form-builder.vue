@@ -11,6 +11,9 @@
             <button v-if="schema.fields.length > 0" @click.prevent="onSave" class="btn btn-secondary">
               Save
             </button>
+            <nuxt-link :to="{ name: 'register' }" class="btn btn-primary">
+              Go to registration
+            </nuxt-link>
           </form>
           <div class="w-25">
             <ul class="drag-inner-list">
@@ -84,10 +87,6 @@ export default {
         placeholder: "User's biography"
       }
     ],
-    schema: {
-      fields: [
-      ]
-    },
     formOptions: {
       validateAfterLoad: true,
       validateAfterChanged: true,
@@ -101,6 +100,17 @@ export default {
       showDropzoneAreas: true
     }
   }),
+  async asyncData ({ $axios }) {
+    let fields = []
+    try {
+      fields = (await $axios.$get('/forms/1')).fields
+    } catch (e) {
+      console.log(e)
+    }
+    return {
+      schema: { fields }
+    }
+  },
   created () {
     this.dragOptions.onDragend = this.onDragend
     this.$eventBus.$on('saveField', (field) => {

@@ -38,7 +38,8 @@ export default {
     { src: '~/plugins/draggable.js', ssr: false },
     { src: '~/plugins/modal.js', ssr: true },
     { src: '~/plugins/scrollbar.js', ssr: false },
-    { src: '~/plugins/eventBus.js', ssr: true }
+    { src: '~/plugins/eventBus.js', ssr: true },
+    { src: '~/plugins/stepper.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

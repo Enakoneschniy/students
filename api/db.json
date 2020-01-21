@@ -15,6 +15,13 @@
       "email": "e.nakoneschniy@gmail.com",
       "phone": "+380685839243",
       "id": 1
+    },
+    {
+      "groupId": 1,
+      "name": "csdfsd",
+      "phone": "sdfsdf",
+      "email": "sdasd@sdsd.com",
+      "id": 2
     }
   ],
   "groups": [
@@ -24,6 +31,22 @@
     },
     {
       "name": "PHP 01/2020",
+      "id": 2
+    }
+  ],
+  "forms-data": [
+    {
+      "groupId": 1,
+      "first_name": "Eugene",
+      "last_name": "Nakoneschniy",
+      "email": "e.nakoneschniy@gmail.com",
+      "id": 1
+    },
+    {
+      "groupId": 2,
+      "first_name": "IEVHENIJ",
+      "last_name": "NAKONESHNYJ",
+      "email": "eugene.nakoneschniy@gmail.com",
       "id": 2
     }
   ],
@@ -48,6 +71,15 @@
           "label": "Last Name",
           "model": "last_name",
           "placeholder": "Last Name"
+        },
+        {
+          "uid": 2,
+          "fieldLabel": "Email field",
+          "type": "input",
+          "inputType": "email",
+          "label": "Email",
+          "model": "email",
+          "placeholder": "E-mail address"
         }
       ]
     }
